@@ -1,12 +1,7 @@
 import scalariform.formatter.preferences._
-import ReleaseTransformations._
-
-import scala.xml.{ Node => XmlNode, NodeSeq => XmlNodeSeq, _}
-import scala.xml.transform.{ RewriteRule, RuleTransformer }
 
 organization := "com.fsat.examples.spark"
 name := "api-usage-example"
-
 
 // Code formatting option
 scalariformPreferences in ThisBuild := scalariformPreferences.value
