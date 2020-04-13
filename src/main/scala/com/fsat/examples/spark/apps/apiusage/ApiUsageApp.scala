@@ -4,10 +4,10 @@ import java.net.URI
 
 import com.fsat.examples.spark.AppBase
 import com.fsat.examples.spark.apps.apiusage.argparse.ApiUsageArgs
-import com.fsat.examples.spark.apps.apiusage.interpreters.{ApiUsageAlgebra, ApiUsageInterpreter}
+import com.fsat.examples.spark.apps.apiusage.interpreters.{ ApiUsageAlgebra, ApiUsageInterpreter }
 import org.apache.spark.sql.SparkSession
 
-import scala.util.{Failure, Try}
+import scala.util.{ Failure, Try }
 
 object ApiUsageApp extends AppBase {
   override def run(args: Seq[String])(implicit spark: SparkSession): Try[URI] =
@@ -19,7 +19,7 @@ object ApiUsageApp extends AppBase {
       case _ => Failure(new IllegalArgumentException(s"Invalid input argument for [${this.getClass.getSimpleName}] - ${args}"))
     }
 
-  private[apiusage] def createInterpreter(proxyLogPath: URI, customerPath: URI, outputPath: URI): ApiUsageAlgebra[Try] =
+  private[apiusage] def createInterpreter(proxyLogPath: URI, customerPath: URI, outputPath: URI)(implicit spark: SparkSession): ApiUsageAlgebra[Try] =
     new ApiUsageInterpreter(proxyLogPath, customerPath, outputPath)
 
   private[apiusage] def execute(interpreter: ApiUsageAlgebra[Try]): Try[URI] = {
