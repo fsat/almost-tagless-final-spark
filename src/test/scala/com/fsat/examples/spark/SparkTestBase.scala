@@ -24,14 +24,17 @@ object SparkTestBase {
   }
 
   object Dates {
+    def timestamp(year: Int, month: Int, date: Int, hour: Int, minute: Int, second: Int): Timestamp =
+      new Timestamp(utcDate(year, month, date, hour, minute, second).toEpochSecond * 1000)
+
     def timestamp(year: Int, month: Int, date: Int): Timestamp =
-      new Timestamp(utcDate(year, month, date).toEpochSecond * 1000)
+      new Timestamp(utcDate(year, month, date, 0, 0, 0).toEpochSecond * 1000)
 
     def sqlDate(year: Int, month: Int, date: Int): Date =
-      Date.valueOf(utcDate(year, month, date).toLocalDate)
+      Date.valueOf(utcDate(year, month, date, 0, 0, 0).toLocalDate)
 
-    def utcDate(year: Int, month: Int, date: Int): ZonedDateTime = {
-      ZonedDateTime.of(year, month, date, 0, 0, 0, 0, ZoneId.of("UTC"))
+    def utcDate(year: Int, month: Int, date: Int, hour: Int, minute: Int, second: Int): ZonedDateTime = {
+      ZonedDateTime.of(year, month, date, hour, minute, second, 0, ZoneId.of("UTC"))
     }
   }
 }
